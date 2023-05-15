@@ -93,31 +93,14 @@ services:
     ports:
       - "8080:8080"
     depends_on:
+      redis:
+        condition: service_healthy
       mariadb:
         condition: service_healthy
       mongodb:
         condition: service_healthy
       flyway:
         condition: service_completed_successfully
-    networks:
-      - bank2_net
-
-  phpmyadmin:
-    image: phpmyadmin
-    restart: always
-    expose:
-      - "8081"
-    ports:
-      - "8081:80"
-    environment:
-      PMA_HOST: mariadb
-      PMA_PORT: 3306
-      MYSQL_ROOT_USER: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-    depends_on:
-      mariadb:
-        condition: service_healthy
     networks:
       - bank2_net
 
