@@ -45,6 +45,15 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        /**
+         * TODO popraviti: kada se posalje request na ovaj metod BEZ request
+         *   body-ja, dobija se sledeci error:
+         *   Resolved [org.springframework.http.converter
+         *  .HttpMessageNotReadableException: Required request body is missing:
+         *  public org.springframework.http.ResponseEntity<?>rs.edu.raf.si.
+         *  bank2.main.controllers.AuthenticationController.login(rs.edu.raf.
+         *  si.bank2.main.requests.LoginRequest)]
+         */
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));

@@ -1,29 +1,60 @@
 package rs.edu.raf.si.bank2.main.models.mariadb;
 
-import java.util.Collection;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.data.annotation.Reference;
+import org.springframework.data.redis.core.index.Indexed;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Collection;
 
 @Data
 // @Builder
 @AllArgsConstructor
 // @RequiredArgsConstructor
-// @NoArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(
         name = "exchange",
         uniqueConstraints = {
-            @UniqueConstraint(columnNames = {"acronym", "micCode"}),
+                @UniqueConstraint(columnNames = {"acronym", "micCode"}),
         })
-public class Exchange {
+public class Exchange implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 2055316560326652442L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    public Exchange() {}
+    private String exchangeName;
+    @Indexed
+    private String acronym;
+    @NotNull
+    @Indexed
+    private String micCode;
+    private String polity;
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    @Fetch(FetchMode.SELECT)
+    @Reference
+    private Currency currency;
+    private String timeZone;
+    private String openTime;
+    private String closeTime;
+    @ElementCollection
+    @CollectionTable(name = "exchange_calendar", joinColumns =
+    @JoinColumn(name = "exchange_id"))
+    // TODO izostavlja se polje iz rezultata!
+    @JsonIgnore
+    @Column(name = "calendar_value")
+    private Collection<String> calendar;
 
     public Exchange(
             String exchangeName,
@@ -44,28 +75,4 @@ public class Exchange {
         this.closeTime = closeTime;
         //        this.calendar = calendar;
     }
-
-    private String exchangeName;
-
-    private String acronym;
-
-    @NotNull
-    private String micCode;
-
-    private String polity;
-
-    @ManyToOne
-    @JoinColumn(name = "currency_id")
-    private Currency currency;
-
-    private String timeZone;
-
-    private String openTime;
-
-    private String closeTime;
-
-    @ElementCollection
-    @CollectionTable(name = "exchange_calendar", joinColumns = @JoinColumn(name = "exchange_id"))
-    @Column(name = "calendar_value")
-    private Collection<String> calendar;
 }

@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import rs.edu.raf.si.bank2.main.exceptions.ExchangeNotFoundException;
 import rs.edu.raf.si.bank2.main.models.mariadb.Exchange;
@@ -24,11 +25,13 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
+    @Cacheable(value = "exchanges")
     public List<Exchange> findAll() {
         return exchangeRepository.findAll();
     }
 
     @Override
+    @Cacheable(value = "exchange", key="#id")
     public Optional<Exchange> findById(Long id) {
 
         Optional<Exchange> exchange = exchangeRepository.findById(id);
@@ -40,6 +43,7 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
+    @Cacheable(value = "exchange", key="#micCode")
     public Optional<Exchange> findByMicCode(String micCode) {
         Optional<Exchange> exchange = exchangeRepository.findExchangeByMicCode(micCode);
         if (exchange.isPresent()) {
@@ -50,6 +54,7 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
+    @Cacheable(value = "exchange", key="#acronym")
     public Optional<Exchange> findByAcronym(String acronym) {
         Optional<Exchange> exchange = exchangeRepository.findExchangeByAcronym(acronym);
         if (exchange.isPresent()) {
@@ -60,6 +65,7 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
+    @Cacheable(value = "exchangeActive", key="#micCode")
     public boolean isExchangeActive(String micCode) {
 
         Optional<Exchange> exchangeEntry = exchangeRepository.findExchangeByMicCode(micCode);

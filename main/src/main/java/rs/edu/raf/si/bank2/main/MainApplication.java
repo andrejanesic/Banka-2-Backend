@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 @SpringBootApplication
-@EnableCaching
+// @EnableRedisRepositories("rs.edu.raf.si.bank2.main.repositories.redis")
 @EnableJpaRepositories("rs.edu.raf.si.bank2.main.repositories.mariadb")
 @EnableMongoRepositories("rs.edu.raf.si.bank2.main.repositories.mongodb")
 public class MainApplication {
