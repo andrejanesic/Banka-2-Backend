@@ -37,6 +37,7 @@ presubmits:
               docker compose up -d mariadb
               docker compose up -d flyway
               docker compose up -d mongodb
+              docker compose up -d redis
               
               cd $MICROSERVICE
 
@@ -80,6 +81,7 @@ postsubmits:
               docker compose up -d mariadb
               docker compose up -d flyway
               docker compose up -d mongodb
+              docker compose up -d redis
               
               ref=$(git rev-parse --abbrev-ref HEAD)
               
