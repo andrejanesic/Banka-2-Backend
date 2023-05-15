@@ -1,15 +1,11 @@
 package rs.edu.raf.si.bank2.main.models.mariadb;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.Reference;
 
 @Data
 @Builder
@@ -20,9 +16,9 @@ import org.springframework.data.annotation.Reference;
         name = "currencies",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 // dodaj posle i ostale atribute
-public class Currency implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 8037905551051265919L;
+public class Currency { // implements Serializable {
+    // @Serial
+    // private static final long serialVersionUID = 8037905551051265919L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +31,7 @@ public class Currency implements Serializable {
 
     @OneToMany(mappedBy = "currency")
     // TODO izostavlja se polje iz rezultata!
-    @JsonIgnore
-    @Reference
+    // @JsonIgnore
+    // @Reference
     private List<Inflation> inflations;
 }

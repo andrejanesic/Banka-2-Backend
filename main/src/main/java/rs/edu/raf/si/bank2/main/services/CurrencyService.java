@@ -3,7 +3,6 @@ package rs.edu.raf.si.bank2.main.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import rs.edu.raf.si.bank2.main.exceptions.CurrencyNotFoundException;
 import rs.edu.raf.si.bank2.main.models.mariadb.Currency;
@@ -20,13 +19,13 @@ public class CurrencyService implements CurrencyServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "currencies")
+    // @Cacheable(value = "currencies")
     public List<Currency> findAll() {
         return this.currencyRepository.findAll();
     }
 
     @Override
-    @Cacheable(value = "currency", key = "#currencyId")
+    // @Cacheable(value = "currency", key = "#currencyId")
     public Optional<Currency> findById(Long currencyId) {
         Optional<Currency> currency = this.currencyRepository.findById(currencyId);
         if (currency.isPresent()) {
@@ -37,7 +36,7 @@ public class CurrencyService implements CurrencyServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "currency", key = "#currencyCode")
+    // @Cacheable(value = "currency", key = "#currencyCode")
     public Optional<Currency> findByCurrencyCode(String currencyCode) {
         Optional<Currency> currency = this.currencyRepository.findCurrencyByCurrencyCode(currencyCode);
         if (currency.isPresent()) {
@@ -48,7 +47,7 @@ public class CurrencyService implements CurrencyServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "currency", key = "#currencyCode")
+    // @Cacheable(value = "currency", key = "#currencyCode")
     public Optional<Currency> findCurrencyByCurrencyCode(String currencyCode) {
         // TODO da li je ovo isti metod kao #findByCurrencyCode?
         return currencyRepository.findCurrencyByCurrencyCode(currencyCode);

@@ -1,17 +1,11 @@
 package rs.edu.raf.si.bank2.main.models.mariadb;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.core.index.Indexed;
 
 @Data
@@ -25,10 +19,10 @@ import org.springframework.data.redis.core.index.Indexed;
         uniqueConstraints = {
             @UniqueConstraint(columnNames = {"acronym", "micCode"}),
         })
-public class Exchange implements Serializable {
+public class Exchange { // implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 2055316560326652442L;
+    // @Serial
+    // private static final long serialVersionUID = 2055316560326652442L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +41,8 @@ public class Exchange implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "currency_id")
-    @Fetch(FetchMode.SELECT)
-    @Reference
+    // @Fetch(FetchMode.SELECT)
+    // @Reference
     private Currency currency;
 
     private String timeZone;
@@ -58,7 +52,7 @@ public class Exchange implements Serializable {
     @ElementCollection
     @CollectionTable(name = "exchange_calendar", joinColumns = @JoinColumn(name = "exchange_id"))
     // TODO izostavlja se polje iz rezultata!
-    @JsonIgnore
+    // @JsonIgnore
     @Column(name = "calendar_value")
     private Collection<String> calendar;
 
