@@ -26,7 +26,7 @@ public class CurrencyService implements CurrencyServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "currency", key="#currencyId")
+    @Cacheable(value = "currency", key = "#currencyId")
     public Optional<Currency> findById(Long currencyId) {
         Optional<Currency> currency = this.currencyRepository.findById(currencyId);
         if (currency.isPresent()) {
@@ -37,7 +37,7 @@ public class CurrencyService implements CurrencyServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "currency", key="#currencyCode")
+    @Cacheable(value = "currency", key = "#currencyCode")
     public Optional<Currency> findByCurrencyCode(String currencyCode) {
         Optional<Currency> currency = this.currencyRepository.findCurrencyByCurrencyCode(currencyCode);
         if (currency.isPresent()) {
@@ -48,7 +48,7 @@ public class CurrencyService implements CurrencyServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "currency", key="#currencyCode")
+    @Cacheable(value = "currency", key = "#currencyCode")
     public Optional<Currency> findCurrencyByCurrencyCode(String currencyCode) {
         // TODO da li je ovo isti metod kao #findByCurrencyCode?
         return currencyRepository.findCurrencyByCurrencyCode(currencyCode);

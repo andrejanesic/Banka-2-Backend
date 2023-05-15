@@ -31,7 +31,7 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "exchange", key="#id")
+    @Cacheable(value = "exchange", key = "#id")
     public Optional<Exchange> findById(Long id) {
 
         Optional<Exchange> exchange = exchangeRepository.findById(id);
@@ -43,7 +43,7 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "exchange", key="#micCode")
+    @Cacheable(value = "exchange", key = "#micCode")
     public Optional<Exchange> findByMicCode(String micCode) {
         Optional<Exchange> exchange = exchangeRepository.findExchangeByMicCode(micCode);
         if (exchange.isPresent()) {
@@ -54,7 +54,7 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "exchange", key="#acronym")
+    @Cacheable(value = "exchange", key = "#acronym")
     public Optional<Exchange> findByAcronym(String acronym) {
         Optional<Exchange> exchange = exchangeRepository.findExchangeByAcronym(acronym);
         if (exchange.isPresent()) {
@@ -65,7 +65,7 @@ public class ExchangeService implements ExchangeServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "exchangeActive", key="#micCode")
+    @Cacheable(value = "exchangeActive", key = "#micCode")
     public boolean isExchangeActive(String micCode) {
 
         Optional<Exchange> exchangeEntry = exchangeRepository.findExchangeByMicCode(micCode);

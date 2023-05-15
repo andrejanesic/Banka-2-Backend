@@ -1,6 +1,5 @@
 package rs.edu.raf.si.bank2.main.configuration;
 
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -11,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableScheduling
 @EnableAsync
-@EnableCaching
 public class AppConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
